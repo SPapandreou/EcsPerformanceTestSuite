@@ -1,0 +1,77 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/EcsPerformanceTestSuiteStyle.uss?fileID=7433441132597879392&amp;guid=bb8441e7a24b2814d82891deee8ebd38&amp;type=3#EcsPerformanceTestSuiteStyle" />
+    <engine:VisualElement name="RootContainer" style="flex-grow: 1;">
+        <engine:VisualElement name="Header" style="flex-grow: 0; align-items: center; justify-content: center;">
+            <engine:Label text="ECS Performance Test Suite" name="Heading" class="heading" />
+            <engine:Label text="Main Menu" name="SubHeading" class="subheading" />
+        </engine:VisualElement>
+        <engine:VisualElement name="Content" style="flex-grow: 1; margin-left: 20px; margin-top: 20px; margin-right: 20px; background-color: rgba(45, 111, 248, 0.97); margin-bottom: 20px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px; padding-left: 8px; padding-top: 8px; padding-right: 8px; padding-bottom: 8px;">
+            <engine:VisualElement name="TableHeader" style="flex-grow: 0; flex-direction: row; background-color: rgb(144, 144, 144); padding-right: 24px; border-bottom-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); padding-bottom: 2px;">
+                <engine:VisualElement class="testTableCell" style="width: 20%;">
+                    <engine:Label text="Test Case" name="Name" class="tableCellContent tableCellLabel" style="width: 20%;" />
+                </engine:VisualElement>
+                <engine:VisualElement class="testTableCell" style="width: 10%;">
+                    <engine:Label text="Count" name="Count" class="tableCellContent tableCellLabel" style="width: 10%;" />
+                </engine:VisualElement>
+                <engine:VisualElement class="testTableCell" style="width: 10%;">
+                    <engine:Label text="Duration" name="Duration" class="tableCellContent tableCellLabel" style="width: 10%;" />
+                </engine:VisualElement>
+                <engine:VisualElement class="testTableCell" style="flex-grow: 1;">
+                    <engine:Label text="Arrangement" name="Arrangement" class="tableCellContent tableCellLabel" style="width: 10%;" />
+                </engine:VisualElement>
+                <engine:VisualElement class="testTableCell" style="width: 10%;">
+                    <engine:Label text="Shape" name="Shape" class="tableCellContent tableCellLabel" style="width: 10%;" />
+                </engine:VisualElement>
+                <engine:VisualElement class="testTableCell" style="width: 10%;">
+                    <engine:Label text="Packing" name="Packing" class="tableCellContent tableCellLabel" style="width: 10%;" />
+                </engine:VisualElement>
+                <engine:VisualElement class="testTableCell" style="width: 10%;">
+                    <engine:Label text="Scale" name="Scale" class="tableCellContent tableCellLabel" style="width: 10%;" />
+                </engine:VisualElement>
+                <engine:VisualElement class="testTableCell" style="width: 10%;">
+                    <engine:Label text="Height Offset" name="HeightOffset" class="tableCellContent tableCellLabel" style="width: 10%;" />
+                </engine:VisualElement>
+                <engine:VisualElement name="Spacer" style="flex-grow: 1;" />
+            </engine:VisualElement>
+            <engine:ScrollView name="TestCasesView" vertical-scroller-visibility="AlwaysVisible" focusable="true" horizontal-scroller-visibility="Hidden" class="testCaseView" style="flex-grow: 1; min-height: auto; overflow: visible; flex-basis: 0;">
+                <engine:VisualElement style="flex-grow: 1; flex-direction: row;">
+                    <engine:VisualElement name="TestCase" style="flex-grow: 0; width: 10%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; flex-shrink: 0;">
+                        <engine:DropdownField />
+                    </engine:VisualElement>
+                    <engine:VisualElement name="Count" style="flex-grow: 0; width: 10%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; flex-shrink: 0;">
+                        <engine:IntegerField value="42" style="-unity-text-align: upper-center;" />
+                    </engine:VisualElement>
+                    <engine:VisualElement name="Duration" style="flex-grow: 0; width: 10%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; flex-shrink: 0;">
+                        <engine:IntegerField value="42" style="-unity-text-align: upper-center;" />
+                    </engine:VisualElement>
+                    <engine:VisualElement name="Arrangement" style="flex-grow: 0; width: 10%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; flex-shrink: 0;">
+                        <engine:EnumField value="Center" type="Core.ArrangementShape, Assembly-CSharp" />
+                    </engine:VisualElement>
+                    <engine:VisualElement name="Shape" style="flex-grow: 0; width: 10%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; flex-shrink: 0;">
+                        <engine:EnumField value="Center" type="Core.PrimitiveShape, Assembly-CSharp" />
+                    </engine:VisualElement>
+                    <engine:VisualElement name="Packing" style="flex-grow: 0; width: 10%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; flex-shrink: 0;">
+                        <engine:IntegerField value="42" style="-unity-text-align: upper-center;" />
+                    </engine:VisualElement>
+                    <engine:VisualElement name="Scale" style="flex-grow: 0; width: 10%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; flex-shrink: 0;">
+                        <engine:IntegerField value="42" style="-unity-text-align: upper-center;" />
+                    </engine:VisualElement>
+                    <engine:VisualElement name="HeightOffset" style="flex-grow: 0; width: 10%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; flex-shrink: 0;">
+                        <engine:IntegerField value="42" style="-unity-text-align: upper-center;" />
+                    </engine:VisualElement>
+                    <engine:VisualElement name="Spacer" style="flex-grow: 1;" />
+                </engine:VisualElement>
+            </engine:ScrollView>
+        </engine:VisualElement>
+        <engine:VisualElement name="Buttons" style="flex-grow: 0; flex-direction: row; margin-left: 50px; margin-right: 50px; margin-bottom: 20px;">
+            <engine:VisualElement name="ControlButtonContainer" style="flex-grow: 0; flex-direction: row;">
+                <engine:Button text="Add" name="AddButton" />
+                <engine:Button text="Delete" name="DeleteButton" />
+                <engine:Button text="Add Default" name="AddDefaultButton" />
+            </engine:VisualElement>
+            <engine:VisualElement name="StartButtonContainer" style="flex-grow: 1; flex-direction: row; justify-content: flex-end;">
+                <engine:Button text="Start" name="StartButton" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

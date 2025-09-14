@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Bootstrap.unity
+    guid: e7c010a1d80f471458d5a4eb3aa3cd9c
+  - enabled: 1
+    path: Assets/Scenes/IterationTest/OopIterationTestCase.unity
+    guid: 2339c8a2ff6f5c94f8864e7c73ef090b
+  - enabled: 1
+    path: Assets/Scenes/IterationTest/EcsIterationTestCase.unity
+    guid: fe9078a2ad17f5a4da8f8d6575f0e4f0
+  - enabled: 1
+    path: Assets/Scenes/AnimationTest/OopAnimationTestCase.unity
+    guid: c68d8d78122c96b4fa756532f76d187e
+  - enabled: 1
+    path: Assets/Scenes/AnimationTest/EcsAnimationTestCase.unity
+    guid: 88d3d66415d898c4e89ce7adc83c478e
+  - enabled: 1
+    path: Assets/Scenes/PhysicsTest/OopPhysicsTestCase.unity
+    guid: 5c207d95ae8f7274fab40b3452d4820e
+  m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

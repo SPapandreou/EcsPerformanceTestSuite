@@ -1,0 +1,84 @@
+#RootContainer {
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: rgba(127, 224, 255, 0.27);
+}
+
+Button {
+    width: 200px;
+    height: 50px;
+    margin-left: 30px;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: rgba(45, 111, 248, 0.97);
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+}
+
+.heading {
+    font-size: 50px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+}
+
+.subheading {
+    font-size: 40px;
+    -unity-font-style: normal;
+    color: rgb(255, 255, 255);
+}
+
+.testTableCell {
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    margin-right: 3px;
+    padding-top: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-bottom: 4px;
+}
+
+.tableCellContent {
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
+    -unity-text-align: middle-center;
+}
+
+.tableCellLabel {
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+}
