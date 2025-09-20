@@ -2,6 +2,9 @@
 using System.Threading;
 using AnimationTest.OOP;
 using Core;
+using Core.EcsWorld;
+using Core.Statistics;
+using Core.TestHud;
 using Core.Tests;
 using Core.uProf;
 using Cysharp.Threading.Tasks;
@@ -23,11 +26,12 @@ namespace AnimationTest.ECS
         private readonly Camera _mainCamera;
         private readonly CinemachinePositionComposer _positionComposer;
         private readonly WorldContainer _worldContainer;
-        private readonly EcsAnimationTestCase _testCase;
-        private readonly UprofWrapper _uprofWrapper;
+        private readonly EcsAnimation _testCase;
+        private readonly IUprofWrapper _uprofWrapper;
+        private readonly TestHudLogic _testHudLogic;
 
         public TestLogic(WorldContainer worldContainer, FpsCounter fpsCounter, TestManager testManager,
-            Camera mainCamera, CinemachinePositionComposer positionComposer, ITestCaseFactory<EcsAnimationTestCase> defaultFactory, UprofWrapper uprofWrapper)
+            Camera mainCamera, CinemachinePositionComposer positionComposer, ITestCaseFactory<EcsAnimation> defaultFactory, IUprofWrapper uprofWrapper, TestHudLogic testHudLogic)
         {
             _fpsCounter = fpsCounter;
             _testManager = testManager;
@@ -38,17 +42,21 @@ namespace AnimationTest.ECS
 
             _testCase = _testManager.GetOrCreateTestCase(defaultFactory);
             
-            _testCase = _testManager.GetOrCreateTestCase(defaultFactory);
-            _testResults.TestCase = nameof(EcsAnimationTestCase);
+            _testHudLogic = testHudLogic;
+            
+            _testResults.TestCase = nameof(EcsAnimation);
             _testResults.Parameters["Count"] = _testCase.Count;
             _testResults.Parameters["Duration"] = _testCase.Duration;
         }
 
         public async UniTask StartAsync(CancellationToken cancellation = new CancellationToken())
         {
-            _testManager.PublishMessage("==== Starting execution of ECS Animation Test ====");
-            _testManager.PublishMessage($"Size: {_testCase.Count}");
-            _testManager.PublishMessage($"Duration: {_testCase.Duration}");
+            _testHudLogic.SetTitle(nameof(EcsAnimation));
+            _testManager.PublishMessage($"N = {_testCase.Count}");
+            _testManager.PublishMessage($"t = {_testCase.Duration}");
+            _testManager.PublishMessage("Setup...");
+            
+            await UniTask.Yield();
 
             var query = _worldContainer.World.EntityManager.CreateEntityQuery(typeof(AnimationTestConfigData));
 
@@ -99,20 +107,21 @@ namespace AnimationTest.ECS
                 TransitionTime = -1f,
                 Remaining = config.WalkDistance
             });
+            
+            _testManager.PublishMessage("Execution...");
 
             await UniTask.NextFrame();
-
-
+            
             var system = _worldContainer.World.CreateSystem<PeterSystem>();
             var group = _worldContainer.World.GetExistingSystemManaged<SimulationSystemGroup>();
 
             group.AddSystemToUpdateList(system);
             group.SortSystems();
-            PrintSystems(_worldContainer);
 
             await UniTask.NextFrame();
 
-
+            await _uprofWrapper.StartProfiling();
+            
             _fpsCounter.Start();
 
             while (_fpsCounter.TotalTime < _testCase.Duration)
@@ -121,10 +130,23 @@ namespace AnimationTest.ECS
             }
 
             _fpsCounter.Stop();
+            
+            _testManager.PublishMessage("Cleanup...");
+
+            await UniTask.Yield();
+
+            await _uprofWrapper.StopProfiling(_testCase.OutputDirectory, _testResults);
 
             _testResults.KeyValues["AverageFps"] = _fpsCounter.AverageFps;
             _testResults.KeyValues["MinFps"] = _fpsCounter.MinFps;
             _testResults.KeyValues["MaxFps"] = _fpsCounter.MaxFps;
+            _testResults.TimeSeriesData["Fps"] = _fpsCounter.GetFpsTimeSeries();
+
+            if (_testCase.Warmup)
+            {
+                _testCase.TestFinished();
+                return;
+            }
             
             _testResults.WriteToFile(_testCase.OutputDirectory);
             _testCase.TestFinished();

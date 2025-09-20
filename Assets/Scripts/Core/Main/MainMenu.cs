@@ -1,12 +1,7 @@
-﻿using VContainer.Unity;
-
-namespace Core.Main
+﻿namespace Core.Main
 {
-    public class MainMenu : IStartable
+    public class MainMenu
     {
-        public void Start()
-        {
-            
-        }
+        
     }
 }

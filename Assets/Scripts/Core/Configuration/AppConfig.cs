@@ -7,5 +7,6 @@
         public string UprofTemp { get; set; }
         public string ResultDirectory { get; set; }
         public bool UprofEnable { get; set; }
+        public string TestRunFileDirectory { get; set; }
     }
 }

@@ -1,8 +1,11 @@
-﻿namespace Core
+﻿using UnityEngine.Scripting;
+
+namespace Core.Shapes
 {
+    [Preserve]
     public enum ArrangementShape
     {
-        Line,
+        Plane,
         Wall,
         Sphere,
         Cube,

@@ -15,7 +15,10 @@
     margin-bottom: 20px;
     margin-left: 20px;
     margin-right: 20px;
-    background-color: rgba(127, 224, 255, 0.27);
+}
+
+Label {
+    color: rgb(0, 0, 0);
 }
 
 Button {
@@ -34,31 +37,48 @@ Button {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
-    background-color: rgba(45, 111, 248, 0.97);
+    background-color: rgb(186, 138, 64);
     font-size: 30px;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+Button:hover {
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+Button:active {
+    background-color: rgb(0, 180, 216);
 }
 
 .heading {
     font-size: 50px;
-    color: rgb(255, 255, 255);
     -unity-font-style: bold;
 }
 
 .subheading {
     font-size: 40px;
     -unity-font-style: normal;
-    color: rgb(255, 255, 255);
 }
 
 .testTableCell {
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
     border-top-width: 2px;
     border-right-width: 2px;
     border-bottom-width: 2px;
@@ -68,6 +88,10 @@ Button {
     padding-left: 4px;
     padding-right: 4px;
     padding-bottom: 4px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 
 .tableCellContent {
@@ -77,8 +101,85 @@ Button {
     -unity-text-align: middle-center;
 }
 
-.tableCellLabel {
+.contentContainer {
+    border-left-color: rgb(186, 138, 64);
+    border-right-color: rgb(186, 138, 64);
+    border-top-color: rgb(186, 138, 64);
+    border-bottom-color: rgb(186, 138, 64);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    background-color: rgba(34, 34, 34, 0.85);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+}
+
+.contentHeader {
+    background-color: rgb(186, 138, 64);
+    height: 80px;
+    flex-shrink: 1;
+    flex-grow: 0;
+    border-bottom-width: 0;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.heading {
+    font-size: 50px;
+    -unity-font-style: bold;
+}
+
+.contentHeader Label {
     font-size: 25px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    flex-grow: 1;
+    color: rgb(255, 255, 255);
+}
+
+.testListRow Label {
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+}
+
+.testListRowSelected {
+    background-color: rgb(0, 180, 216);
+}
+
+.testListRow {
+    border-left-width: 0;
+    padding-left: 5px;
+    margin-top: 1px;
+}
+
+.testTableCell TextElement {
+    font-size: 20px;
+}
+
+.tableRowSelected {
+    background-color: rgb(0, 180, 216);
+}
+
+#Header Label {
+    -unity-font-style: bold;
+    font-size: 20px;
+}
+
+#MessageView Label {
+    font-size: 15px;
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
 }

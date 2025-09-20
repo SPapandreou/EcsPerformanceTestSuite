@@ -1,9 +1,8 @@
 ﻿using System;
 using Latios;
 using Unity.Entities;
-using UnityEngine;
 
-namespace Core
+namespace Core.EcsWorld
 {
     public class WorldContainer : IDisposable
     {
@@ -34,6 +33,11 @@ namespace Core
             World.simulationSystemGroup.SortSystems();
             World.presentationSystemGroup.SortSystems();
             ScriptBehaviourUpdateOrder.AppendWorldToCurrentPlayerLoop(World);
+        }
+
+        public void StopUpdateWorld()
+        {
+            ScriptBehaviourUpdateOrder.RemoveWorldFromCurrentPlayerLoop(World);
         }
 
         public void Dispose()

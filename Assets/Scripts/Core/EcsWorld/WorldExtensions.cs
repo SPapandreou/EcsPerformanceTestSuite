@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 
-namespace Core
+namespace Core.EcsWorld
 {
     public static class WorldExtensions
     {

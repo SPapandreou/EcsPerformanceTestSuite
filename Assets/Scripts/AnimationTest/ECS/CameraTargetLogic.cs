@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using Core.EcsWorld;
 using Latios.Transforms;
 using Unity.Entities;
 using UnityEngine;

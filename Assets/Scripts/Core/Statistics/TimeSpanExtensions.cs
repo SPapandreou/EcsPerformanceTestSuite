@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core
+namespace Core.Statistics
 {
     public static class TimeSpanExtensions
     {

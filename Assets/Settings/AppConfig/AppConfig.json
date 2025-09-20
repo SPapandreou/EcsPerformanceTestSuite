@@ -1,0 +1,8 @@
+﻿{
+  "UprofWrapperPath": "C:\\GameDevelopment\\UnityProjects\\EcsPerformanceTestSuite\\UprofWrapper\\bin\\Release\\net9.0\\UprofWrapper.exe",
+  "UprofBinaryPath": "C:\\Program Files\\AMD\\AMDuProf\\bin\\AMDuProfCLI.exe",
+  "UprofTemp": "C:\\Users\\Simon\\Desktop\\uprofTemp",
+  "ResultDirectory": "C:\\Users\\Simon\\Desktop\\testResults",
+  "UprofEnable": false,
+  "TestRunFileDirectory" : "C:\\Users\\Simon\\Desktop\\testRuns"
+}

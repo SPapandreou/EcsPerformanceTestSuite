@@ -1,5 +1,6 @@
 ﻿using System;
 using Core;
+using Core.Shapes;
 using UnityEngine;
 
 namespace PhysicsTest

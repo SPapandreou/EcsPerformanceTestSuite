@@ -1,24 +1,61 @@
 ﻿using Core.Tests;
-using IterationTest.ECS;
+using IterationTest.ECSBurst;
+using IterationTest.ECSMainThread;
+using IterationTest.ECSMathBurst;
+using IterationTest.ECSMathParallel;
+using IterationTest.ECSParallel;
 using IterationTest.OOP;
 using UnityEngine;
 
 namespace IterationTest
 {
-    public class DefaultParameters : MonoBehaviour, ITestCaseFactory<OopIterationTestCase>, ITestCaseFactory<EcsIterationTestCase>
+    public class DefaultParameters : MonoBehaviour, ITestCaseFactory<OopIteration>, ITestCaseFactory<EcsIterationMainThread>, ITestCaseFactory<EcsIterationBurst>, ITestCaseFactory<EcsIterationParallel>, ITestCaseFactory<EcsIterationMathBurst>, ITestCaseFactory<EcsIterationMathParallel>
     {
         public int count;
-        OopIterationTestCase ITestCaseFactory<OopIterationTestCase>.CreateTestCase()
+        
+        OopIteration ITestCaseFactory<OopIteration>.CreateTestCase()
         {
-            return new OopIterationTestCase
+            return new OopIteration
+            {
+                Count = count
+            };
+        }
+        
+        EcsIterationMainThread ITestCaseFactory<EcsIterationMainThread>.CreateTestCase()
+        {
+            return new EcsIterationMainThread
             {
                 Count = count
             };
         }
 
-        EcsIterationTestCase ITestCaseFactory<EcsIterationTestCase>.CreateTestCase()
+        EcsIterationBurst ITestCaseFactory<EcsIterationBurst>.CreateTestCase()
         {
-            return new EcsIterationTestCase
+            return new EcsIterationBurst
+            {
+                Count = count
+            };
+        }
+
+        EcsIterationParallel ITestCaseFactory<EcsIterationParallel>.CreateTestCase()
+        {
+            return new EcsIterationParallel
+            {
+                Count = count
+            };
+        }
+
+        EcsIterationMathBurst ITestCaseFactory<EcsIterationMathBurst>.CreateTestCase()
+        {
+            return new EcsIterationMathBurst
+            {
+                Count = count
+            };
+        }
+
+        public EcsIterationMathParallel CreateTestCase()
+        {
+            return new EcsIterationMathParallel
             {
                 Count = count
             };

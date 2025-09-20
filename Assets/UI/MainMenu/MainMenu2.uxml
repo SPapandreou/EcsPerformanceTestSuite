@@ -1,0 +1,16 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheet2.uss?fileID=7433441132597879392&amp;guid=51fa3c3de30cb8c40b68212a2aa14554&amp;type=3#StyleSheet2" />
+    <engine:VisualElement name="RootContainer" style="flex-grow: 1; background-color: rgba(47, 47, 47, 0.87);">
+        <engine:VisualElement name="Header">
+            <engine:Label text="ECS Performance Test Suite" />
+        </engine:VisualElement>
+        <engine:VisualElement name="Content" class="contentContainer" style="flex-grow: 1; flex-direction: row;">
+            <engine:VisualElement name="TestList" class="contentPanel" style="flex-grow: 1;">
+                <engine:VisualElement name="ContentHeader" class="contentHeader" style="flex-grow: 1;" />
+            </engine:VisualElement>
+            <engine:VisualElement name="TestCaseTable" class="contentPanel" style="flex-grow: 1;">
+                <engine:VisualElement name="ContentHeader" class="contentHeader" style="flex-grow: 1;" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

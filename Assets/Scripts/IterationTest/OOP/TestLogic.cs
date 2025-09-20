@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Threading;
-using Core.Configuration;
+using Core.TestHud;
 using Core.Tests;
 using Core.uProf;
 using Cysharp.Threading.Tasks;
@@ -15,32 +14,38 @@ namespace IterationTest.OOP
     {
         private readonly TestResults _testResults = new();
         private readonly TestManager _testManager;
-        private readonly UprofWrapper _uprofWrapper;
-        private readonly OopIterationTestCase _testCase;
+        private readonly IUprofWrapper _uprofWrapper;
+        private readonly OopIteration _testCase;
+        private readonly TestHudLogic _testHudLogic;
 
-        public TestLogic(TestManager testManager, UprofWrapper uprofWrapper,
-            ITestCaseFactory<OopIterationTestCase> defaultFactory)
+        public TestLogic(TestManager testManager, IUprofWrapper uprofWrapper,
+            ITestCaseFactory<OopIteration> defaultFactory, TestHudLogic testHudLogic)
         {
             _testManager = testManager;
             _uprofWrapper = uprofWrapper;
             _testCase = testManager.GetOrCreateTestCase(defaultFactory);
 
             _testResults.Parameters["Count"] = _testCase.Count;
-            _testResults.TestCase = nameof(OopIterationTestCase);
+            _testResults.TestCase = nameof(OopIteration);
+            _testHudLogic = testHudLogic;
         }
 
         public async UniTask StartAsync(CancellationToken cancellation = new())
         {
+            _testHudLogic.SetTitle(nameof(OopIteration));
+            _testHudLogic.SetFpsEnabled(false);
+            _testManager.PublishMessage($"N = {_testCase.Count}");
+            
             var totalTime = new Stopwatch();
             var stopwatch = new Stopwatch();
 
-            _testManager.PublishMessage("==== Starting execution of OOP Iteration Test ====");
-            _testManager.PublishMessage($"Size: {_testCase.Count}");
+            await UniTask.Yield();
 
             totalTime.Start();
-
-
+            
             _testManager.PublishMessage("Setup...");
+            
+            await UniTask.Yield();
 
             var x = IterationTestConfiguration.X;
             var y = IterationTestConfiguration.Y;
@@ -70,12 +75,10 @@ namespace IterationTest.OOP
             stopwatch.Stop();
             _testResults.KeyValues["Setup"] = stopwatch.Elapsed.TotalSeconds;
             stopwatch.Reset();
-
-            _testManager.PublishMessage("Setup finished...");
+            
+            _testManager.PublishMessage("Execution...");
 
             await UniTask.Yield();
-
-            _testManager.PublishMessage("Execution...");
 
             var velocity = IterationTestConfiguration.VelocityVector;
 
@@ -92,11 +95,9 @@ namespace IterationTest.OOP
             _testResults.KeyValues["Execution"] = stopwatch.Elapsed.TotalSeconds;
             stopwatch.Reset();
 
-            _testManager.PublishMessage("Execution finished...");
-
-            await UniTask.Yield();
-
             _testManager.PublishMessage("Cleanup...");
+            
+            await UniTask.Yield();
 
             stopwatch.Start();
             foreach (var gameObject in gameObjects)
@@ -110,16 +111,19 @@ namespace IterationTest.OOP
             _testResults.KeyValues["Cleanup"] = stopwatch.Elapsed.TotalSeconds;
             stopwatch.Reset();
 
-            _testManager.PublishMessage("Cleanup finished...");
+            _testManager.PublishMessage("Finished...");
+            
+            totalTime.Stop();
 
             await UniTask.Yield();
-
-            totalTime.Stop();
-            _testResults.KeyValues["WallTime"] = totalTime.Elapsed.TotalSeconds;
-            _testManager.PublishMessage("==== Execution of OOP Iteration Test finished ====");
-            _testManager.PublishMessage("==== Results: ====");
-            _testManager.PublishMessage(_testResults.ToString());
+            if (_testCase.Warmup)
+            {
+                _testCase.TestFinished();
+                return;
+            }
             _testResults.WriteToFile(_testCase.OutputDirectory);
+
+            await UniTask.Delay(2000, cancellationToken: cancellation);
 
             _testCase.TestFinished();
         }

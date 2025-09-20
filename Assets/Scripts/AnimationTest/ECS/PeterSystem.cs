@@ -1,6 +1,7 @@
 ﻿using Latios.Kinemation;
 using Latios.Transforms;
 using Latios.Transforms.Systems;
+using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -114,6 +115,7 @@ namespace AnimationTest.ECS
             _rootBoneMask.Dispose();
         }
 
+        [BurstCompile]
         public partial struct SampleAnimationJob : IJobEntity
         {
             [ReadOnly] public AnimationTestStateData State;
@@ -136,6 +138,7 @@ namespace AnimationTest.ECS
             }
         }
         
+        [BurstCompile]
         public partial struct UpdatePeterPositionsJob : IJobEntity
         {
             [ReadOnly] public AnimationTestStateData State;

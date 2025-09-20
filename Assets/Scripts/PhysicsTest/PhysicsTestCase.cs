@@ -1,4 +1,7 @@
-﻿using Core;
+﻿using System;
+using Core;
+using Core.Main;
+using Core.Shapes;
 using Core.Tests;
 using UnityEngine.UIElements;
 
@@ -6,14 +9,34 @@ namespace PhysicsTest
 {
     public abstract class PhysicsTestCase : TestCase
     {
-        public int Count;
-        public PrimitiveShape PrimitiveShape;
-        public ArrangementShape ArrangementShape;
-        public float Scale;
-        public float HeightOffset;
-        public float PackingFactor;
+        public int Count = 10;
+        public PrimitiveShape PrimitiveShape = PrimitiveShape.Sphere;
+        public ArrangementShape ArrangementShape = ArrangementShape.Cube;
+        public float Scale = 1f;
+        public float HeightOffset = 1f;
+        public float PackingFactor = 1f;
+
+        public PhysicsTestCase()
+        {
+            
+        }
+
+        public PhysicsTestCase(VisualTreeAsset tableRowTemplate, TestRunFileEntry entry) : base(tableRowTemplate)
+        {
+            Count = Convert.ToInt32(entry.Parameters["Count"]);
+            PrimitiveShape = (PrimitiveShape)Enum.Parse(typeof(PrimitiveShape), (string)entry.Parameters["PrimitiveShape"]);
+            ArrangementShape = (ArrangementShape)Enum.Parse(typeof(ArrangementShape), (string)entry.Parameters["ArrangementShape"]);
+            Scale = Convert.ToSingle(entry.Parameters["Scale"]);
+            HeightOffset = Convert.ToSingle(entry.Parameters["HeightOffset"]);
+            PackingFactor = Convert.ToSingle(entry.Parameters["PackingFactor"]);
+        }
         
-        protected override TestTableRow GetTestTableRow(UIDocument testTableRowTemplate)
+        public PhysicsTestCase(VisualTreeAsset tableRowTemplate) : base(tableRowTemplate)
+        {
+            
+        }
+        
+        protected override TestTableRow GetTestTableRow(VisualTreeAsset testTableRowTemplate)
         {
             var row = new TestTableRow(testTableRowTemplate);
             row.SetTestCase(GetType().Name);
@@ -25,6 +48,25 @@ namespace PhysicsTest
             row.BindPackingField(PackingFactor, x=>PackingFactor = x.newValue);
             
             return row;
+        }
+        
+        public override TestRunFileEntry GetTestRunFileEntry()
+        {
+            var entry = new TestRunFileEntry
+            {
+                TestCase = GetType().Name,
+                Parameters =
+                {
+                    ["Count"] = Count,
+                    ["PrimitiveShape"] = PrimitiveShape.ToString(),
+                    ["ArrangementShape"] = ArrangementShape.ToString(),
+                    ["Scale"] = Scale,
+                    ["HeightOffset"] = HeightOffset,
+                    ["PackingFactor"] = PackingFactor
+                }
+            };
+
+            return entry;
         }
     }
 }

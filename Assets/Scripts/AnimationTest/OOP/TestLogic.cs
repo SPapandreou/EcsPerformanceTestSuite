@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Core;
+using Core.Statistics;
+using Core.TestHud;
 using Core.Tests;
+using Core.uProf;
 using Cysharp.Threading.Tasks;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -22,13 +24,17 @@ namespace AnimationTest.OOP
 
         private readonly List<GameObject> _objects = new();
 
-        private readonly OopAnimationTestCase _testCase;
+        private readonly OopAnimation _testCase;
+        
+        private readonly TestHudLogic _testHudLogic;
+        
+        private readonly IUprofWrapper _uprofWrapper;
 
         private PeterController _centerPeter;
 
         public TestLogic(PeterController prefab, FpsCounter fpsCounter,
             TestManager testManager, Camera mainCamera, CinemachinePositionComposer positionComposer,
-            ITestCaseFactory<OopAnimationTestCase> defaultFactory)
+            ITestCaseFactory<OopAnimation> defaultFactory, TestHudLogic testHudLogic, IUprofWrapper uprofWrapper)
         {
             _prefab = prefab;
             _fpsCounter = fpsCounter;
@@ -37,17 +43,25 @@ namespace AnimationTest.OOP
             _positionComposer = positionComposer;
 
             _testCase = _testManager.GetOrCreateTestCase(defaultFactory);
-            _testResults.TestCase = nameof(OopAnimationTestCase);
+            _testResults.TestCase = nameof(OopAnimation);
             _testResults.Parameters["Count"] = _testCase.Count;
             _testResults.Parameters["Duration"] = _testCase.Duration;
+            
+            _testHudLogic = testHudLogic;
+            
+            _uprofWrapper = uprofWrapper;
         }
 
 
         public async UniTask StartAsync(CancellationToken cancellation = new CancellationToken())
         {
-            _testManager.PublishMessage("==== Starting execution of OOP Animation Test ====");
-            _testManager.PublishMessage($"Size: {_testCase.Count}");
-            _testManager.PublishMessage($"Duration: {_testCase.Duration}");
+            _testHudLogic.SetTitle(nameof(OopAnimation));
+            
+            _testManager.PublishMessage($"N = {_testCase.Count}");
+            _testManager.PublishMessage($"t = {_testCase.Duration}");
+            _testManager.PublishMessage("Setup...");
+
+            await UniTask.Yield();
 
             var columns = Mathf.CeilToInt(Mathf.Sqrt(_testCase.Count));
             var rows = Mathf.CeilToInt((float)_testCase.Count / columns);
@@ -85,18 +99,49 @@ namespace AnimationTest.OOP
             distance *= 1.5f;
 
             _positionComposer.CameraDistance = distance;
-
+            
+            var lastCameraPosition = _positionComposer.VirtualCamera.transform.position;
 
             await UniTask.NextFrame();
 
-            _fpsCounter.Start();
+            while (Vector3.SqrMagnitude(lastCameraPosition - _positionComposer.VirtualCamera.transform.position) >
+                   0.001f)
+            {
+                lastCameraPosition = _positionComposer.VirtualCamera.transform.position;
+                await UniTask.NextFrame();
+            }
 
+            foreach (var peter in _objects)
+            {
+                peter.GetComponent<PeterController>().StartTest();
+            }
+            
+            _testManager.PublishMessage("Execution...");
+            
+            await UniTask.NextFrame();
+
+            await _uprofWrapper.StartProfiling();
+            
+            _fpsCounter.Start();
             while (_fpsCounter.TotalTime < _testCase.Duration)
             {
                 await UniTask.NextFrame();
             }
 
             _fpsCounter.Stop();
+            
+            _testManager.PublishMessage("Cleanup...");
+            
+            await UniTask.Yield();
+            
+            foreach (var peter in _objects)
+            {
+                peter.GetComponent<PeterController>().StopTest();
+            }
+
+            await _uprofWrapper.StopProfiling(_testCase.OutputDirectory, _testResults);
+
+            await UniTask.Yield();
 
             foreach (var obj in _objects)
             {
@@ -108,8 +153,12 @@ namespace AnimationTest.OOP
             _testResults.KeyValues["AverageFps"] = _fpsCounter.AverageFps;
             _testResults.KeyValues["MinFps"] = _fpsCounter.MinFps;
             _testResults.KeyValues["MaxFps"] = _fpsCounter.MaxFps;
-            
-            _testResults.WriteToFile(_testCase.OutputDirectory);
+            _testResults.TimeSeriesData["Fps"] = _fpsCounter.GetFpsTimeSeries();
+
+            if (!_testCase.Warmup)
+            {
+                _testResults.WriteToFile(_testCase.OutputDirectory);    
+            }
             _testCase.TestFinished();
         }
 

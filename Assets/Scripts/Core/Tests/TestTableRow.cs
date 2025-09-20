@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Shapes;
 using UnityEngine.UIElements;
 
 namespace Core.Tests
@@ -17,9 +18,9 @@ namespace Core.Tests
         
         public VisualElement Root { get; }
         
-        public TestTableRow(UIDocument template)
+        public TestTableRow(VisualTreeAsset template)
         {
-            Root = template.visualTreeAsset.CloneTree();
+            Root = template.CloneTree();
             
             _testCaseLabel = Root.Q<Label>("TestCaseLabel");
             _countField = Root.Q<IntegerField>("CountField");

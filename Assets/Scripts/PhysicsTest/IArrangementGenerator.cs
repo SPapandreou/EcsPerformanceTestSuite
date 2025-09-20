@@ -10,5 +10,8 @@ namespace PhysicsTest
         List<float3> GetFloats();
 
         List<Quaternion> GetRotations();
+        List<quaternion> GetEcsRotations();
+
+        void SetCameraPosition(Camera camera);
     }
 }

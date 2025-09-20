@@ -129,8 +129,9 @@ GameObject:
   m_Component:
   - component: {fileID: 504168211}
   - component: {fileID: 504168210}
+  - component: {fileID: 504168212}
   m_Layer: 0
-  m_Name: UI
+  m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,6 +171,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &504168212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504168209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb96a9ae29c4b85afa489cb531fb855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenu: {fileID: 504168210}
 --- !u!1 &1056159227
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,6 +193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1056159228}
+  - component: {fileID: 1056159229}
   m_Layer: 0
   m_Name: MainMenuScope
   m_TagString: Untagged
@@ -201,6 +216,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1056159229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056159227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f12c3e4a6ee4ffa966990f326cb0889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects: []
+  mainMenuView: {fileID: 504168212}
+  tableRowTemplate: {fileID: 9197481963319205126, guid: 9a51b194e7f0dc049b2e562166a3049e, type: 3}
 --- !u!1 &1744300438
 GameObject:
   m_ObjectHideFlags: 0

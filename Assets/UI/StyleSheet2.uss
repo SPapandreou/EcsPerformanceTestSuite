@@ -1,0 +1,39 @@
+#RootContainer {
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    background-color: rgba(0, 0, 0, 0.71);
+}
+
+#Header {
+    flex-shrink: 0;
+    background-color: rgb(0, 0, 0);
+    flex-grow: 0;
+    flex-basis: auto;
+    height: auto;
+    max-height: none;
+    justify-content: center;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#Header Label {
+    font-size: 40px;
+    -unity-font-style: bold;
+    color: rgb(175, 175, 175);
+}
+
+.contentHeader {
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.contentPanel {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    background-color: rgba(28, 28, 28, 0.74);
+}

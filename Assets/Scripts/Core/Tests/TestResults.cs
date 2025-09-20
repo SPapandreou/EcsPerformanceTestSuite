@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -6,7 +7,7 @@ namespace Core.Tests
 {
     public class TestResults
     {
-        public string TestCase;
+        public string TestCase = String.Empty;
         public Dictionary<string, object> Parameters = new();
         public Dictionary<string, double> UprofData = new();
         public Dictionary<string, List<double>> TimeSeriesData = new();
@@ -17,6 +18,12 @@ namespace Core.Tests
             string json = JsonConvert.SerializeObject(this, Formatting.Indented);
             string path = Path.Combine(outputDirectory, "TestResults.json");
             File.WriteAllText(path, json);
+        }
+
+        public TestResults ReadFromFile(string resultFile)
+        {
+            string json = File.ReadAllText(resultFile);
+            return JsonConvert.DeserializeObject<TestResults>(json);
         }
     }
 }

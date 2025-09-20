@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Core.Main;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -12,14 +13,16 @@ namespace Core.Tests
         public string OutputDirectory { get; private set; }
         public bool ExitAfterExecution { get; set; }
 
-        private readonly UIDocument _tableRowTemplate;
+        public bool Warmup { get; set; }
+
+        private readonly VisualTreeAsset _tableRowTemplate;
 
         public TestCase()
         {
             
         }
 
-        public TestCase(UIDocument tableRowTemplate)
+        public TestCase(VisualTreeAsset tableRowTemplate)
         {
             _tableRowTemplate = tableRowTemplate;
         }
@@ -32,6 +35,9 @@ namespace Core.Tests
                 return _testTableRow;
             }
         }
+        
+        public abstract TestRunFileEntry GetTestRunFileEntry();
+        
         private TestTableRow _testTableRow;
 
         public void TestFinished()
@@ -54,7 +60,7 @@ namespace Core.Tests
             _tcs = new UniTaskCompletionSource();
         }
 
-        protected abstract TestTableRow GetTestTableRow(UIDocument tableRowTemplate);
+        protected abstract TestTableRow GetTestTableRow(VisualTreeAsset tableRowTemplate);
 
         public void CreateOutputDirectory(string resultDirectory)
         {
@@ -64,6 +70,19 @@ namespace Core.Tests
             {
                 Directory.CreateDirectory(OutputDirectory);
             }
+        }
+
+        public void SetSelected(bool selected)
+        {
+            if (selected)
+            {
+                TestTableRow.Root.AddToClassList("tableRowSelected");    
+            }
+            else
+            {
+                TestTableRow.Root.RemoveFromClassList("tableRowSelected");
+            }
+            
         }
     }
 }

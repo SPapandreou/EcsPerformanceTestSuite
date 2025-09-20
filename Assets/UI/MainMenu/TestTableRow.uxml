@@ -1,6 +1,6 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/EcsPerformanceTestSuiteStyle.uss?fileID=7433441132597879392&amp;guid=bb8441e7a24b2814d82891deee8ebd38&amp;type=3#EcsPerformanceTestSuiteStyle" />
-    <engine:VisualElement name="Root" style="flex-grow: 1; flex-direction: row; flex-shrink: 0;">
+    <engine:VisualElement name="Root" style="flex-grow: 1; flex-direction: row; flex-shrink: 0; margin-top: 5px;">
         <engine:VisualElement class="testTableCell" style="width: 20%; align-items: stretch;">
             <engine:Label name="TestCaseLabel" class="tableCellContent tableCellLabel" />
         </engine:VisualElement>
@@ -11,10 +11,10 @@
             <engine:FloatField value="42.2" name="DurationField" class="tableCellContent" />
         </engine:VisualElement>
         <engine:VisualElement class="testTableCell" style="width: 10%;">
-            <engine:EnumField value="Center" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" name="ArrangementField" class="tableCellContent" />
+            <engine:EnumField value="Center" type="Core.Shapes.ArrangementShape, Assembly-CSharp" name="ArrangementField" class="tableCellContent" />
         </engine:VisualElement>
         <engine:VisualElement class="testTableCell" style="width: 10%;">
-            <engine:EnumField value="Center" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" name="ShapeField" class="tableCellContent" />
+            <engine:EnumField value="Center" type="Core.Shapes.PrimitiveShape, Assembly-CSharp" name="ShapeField" class="tableCellContent" />
         </engine:VisualElement>
         <engine:VisualElement class="testTableCell" style="width: 10%;">
             <engine:FloatField value="42.2" name="PackingField" class="tableCellContent" />

@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Animations;
-using UnityEngine.Playables;
+﻿using UnityEngine;
 
 namespace AnimationTest.OOP
 {
@@ -15,8 +12,11 @@ namespace AnimationTest.OOP
         public string walkAnimation = "Walk";
         public string turnAnimation = "Turn";
         public string salute = "Salute";
+        public string idleAnimation = "Idle";
 
         private string _currentAnimation;
+
+        private bool _testRunning;
 
         private PeterState _state;
 
@@ -24,12 +24,18 @@ namespace AnimationTest.OOP
         private Quaternion _startRotation;
         private Quaternion _targetRotation;
 
-
-        private void Start()
+        public void StartTest()
         {
             _state = PeterState.Saluting;
             
             PlayAnimation(salute);
+            _testRunning = true;
+        }
+
+        public void StopTest()
+        {
+            _testRunning = false;
+            PlayAnimation(idleAnimation);
         }
 
         private void PlayAnimation(string playMe, bool crossFade = true)
@@ -48,6 +54,8 @@ namespace AnimationTest.OOP
 
         private void Update()
         {
+            if (!_testRunning) return;
+            
             switch (_state)
             {
                 case PeterState.Walking:

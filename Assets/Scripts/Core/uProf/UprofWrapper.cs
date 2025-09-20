@@ -10,7 +10,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Core.uProf
 {
-    public class UprofWrapper : IDisposable
+    public class UprofWrapper : IUprofWrapper
     {
         private readonly AppConfig _config;
 

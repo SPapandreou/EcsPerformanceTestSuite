@@ -48,3 +48,5 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  appConfigJson: {fileID: 4900000, guid: 6cb2d8d1483d479f99417e604e33dcfc, type: 3}
+  appConfigPath: AppConfig.json

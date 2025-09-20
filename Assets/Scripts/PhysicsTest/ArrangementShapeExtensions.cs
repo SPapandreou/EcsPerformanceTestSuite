@@ -1,5 +1,6 @@
 ﻿using System;
 using Core;
+using Core.Shapes;
 
 namespace PhysicsTest
 {
@@ -9,7 +10,7 @@ namespace PhysicsTest
         {
             return shape switch
             {
-                ArrangementShape.Line => new LineArrangement(count, primitiveShape, scale, offset, packingFactor),
+                ArrangementShape.Plane => new PlaneArrangement(count, primitiveShape, scale, offset, packingFactor),
                 ArrangementShape.Wall => new WallArrangement(count, primitiveShape, scale, offset, packingFactor),
                 ArrangementShape.Sphere => new SphereArrangement(count, primitiveShape, scale, offset, packingFactor),
                 ArrangementShape.Cube => new CubeArrangement(count, primitiveShape, scale, offset, packingFactor),
