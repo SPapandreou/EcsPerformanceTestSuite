@@ -38,6 +38,7 @@ namespace IterationTest.ECSMathParallel
             var stopwatch = new Stopwatch();
             
             _testManager.PublishMessage($"N = {_testCase.Count}");
+            _testManager.PublishMessage($"i = {_testCase.Iterations}");
 
             await UniTask.Yield();
           
@@ -71,17 +72,31 @@ namespace IterationTest.ECSMathParallel
 
             await UniTask.Yield();
 
-            var executionSystem = world.CreateSystem<ECSMathParallel.ExecutionSystem>();
+            var executionSystem = world.CreateSystem<ExecutionSystem>();
+
+            if (!_testCase.Warmup)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    executionSystem.Update(world.Unmanaged);
+                }
+            }
 
             await _uprofWrapper.StartProfiling();
             stopwatch.Start();
-            executionSystem.Update(world.Unmanaged);
+            
+            for (int i = 0; i < _testCase.Iterations; i++)
+            {
+                executionSystem.Update(world.Unmanaged);
+            }
+            
+            
             stopwatch.Stop();
 
 
             await _uprofWrapper.StopProfiling(_testCase.OutputDirectory, _testResults);
 
-            _testResults.KeyValues["Execution"] = stopwatch.Elapsed.TotalSeconds;
+            _testResults.KeyValues["Execution"] = stopwatch.Elapsed.TotalSeconds/_testCase.Iterations;
             stopwatch.Reset();
 
             _testManager.PublishMessage("Cleanup...");
@@ -100,6 +115,7 @@ namespace IterationTest.ECSMathParallel
             await UniTask.Yield();
 
             totalTime.Stop();
+            _testResults.KeyValues["WallTime"] = totalTime.Elapsed.TotalSeconds;
             
             world.DestroyAllSystemsAndLogException(out _);
             world.Dispose();

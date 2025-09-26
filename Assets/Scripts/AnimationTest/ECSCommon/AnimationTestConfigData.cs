@@ -1,7 +1,7 @@
 ﻿using Latios.Kinemation;
 using Unity.Entities;
 
-namespace AnimationTest.ECS
+namespace AnimationTest.ECSCommon
 {
     public struct AnimationTestConfigData : IComponentData
     {

@@ -1,10 +1,11 @@
-﻿using Core.EcsWorld;
+﻿using AnimationTest.ECS;
+using Core.EcsWorld;
 using Latios.Transforms;
 using Unity.Entities;
 using UnityEngine;
 using VContainer.Unity;
 
-namespace AnimationTest.ECS
+namespace AnimationTest.ECSCommon
 {
     public class CameraTargetLogic : IStartable, ITickable
     {

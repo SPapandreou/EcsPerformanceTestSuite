@@ -1,4 +1,4 @@
-﻿using Core;
+﻿using AnimationTest.ECSCommon;
 using Core.EcsWorld;
 using Core.Statistics;
 using Core.TestHud;

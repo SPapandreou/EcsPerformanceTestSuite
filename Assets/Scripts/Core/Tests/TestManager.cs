@@ -7,10 +7,10 @@ using Cysharp.Threading.Tasks;
 using IterationTest.ECSBurst;
 using IterationTest.ECSMainThread;
 using IterationTest.ECSMathBurst;
-using IterationTest.ECSMathParallel;
 using IterationTest.ECSParallel;
 using IterationTest.OOP;
 using R3;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Core.Tests

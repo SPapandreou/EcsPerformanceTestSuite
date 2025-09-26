@@ -26,8 +26,6 @@ namespace IterationTest.ECSMainThread
             };
             
             job.Run();
-
-            state.Enabled = false;
         }
         
         public partial struct UpdatePositionJob : IJobEntity

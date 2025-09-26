@@ -87,12 +87,18 @@ public class Aggregator : INotifyPropertyChanged
         {
             var runsByN = selectedRuns.Where(tr => tr.Name == testCase.Name).GroupBy(tr => Convert.ToInt32(tr.TestResult.Parameters["Count"])).ToDictionary(g=>g.Key, g=> g.Select(r =>
             {
-                if (!r.TestResult.KeyValues.TryGetValue(OutputParameter, out var value))
+                if (r.TestResult.KeyValues.TryGetValue(OutputParameter, out var value))
                 {
-                    throw new Exception($"Test run is missing parameter {OutputParameter}");
+                    return value;
+                    
                 }
 
-                return value;
+                if (r.TestResult.UprofData.TryGetValue(OutputParameter, out var uprofValue))
+                {
+                    return uprofValue;
+                }
+
+                throw new Exception($"Test run is missing parameter {OutputParameter}");
             }).ToList());
 
             var runCounts = runsByN.Values.Select(v => v.Count).Distinct().ToList();

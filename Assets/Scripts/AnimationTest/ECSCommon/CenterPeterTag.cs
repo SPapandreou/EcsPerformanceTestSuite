@@ -1,6 +1,6 @@
 ﻿using Unity.Entities;
 
-namespace AnimationTest.ECS
+namespace AnimationTest.ECSCommon
 {
     public struct CenterPeterTag : IComponentData
     {

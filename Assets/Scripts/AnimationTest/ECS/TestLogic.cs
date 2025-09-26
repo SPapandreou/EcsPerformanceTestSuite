@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
-using AnimationTest.OOP;
-using Core;
+using AnimationTest.ECSCommon;
 using Core.EcsWorld;
 using Core.Statistics;
 using Core.TestHud;
@@ -12,7 +11,6 @@ using Latios.Transforms;
 using Unity.Cinemachine;
 using Unity.Entities;
 using Unity.Mathematics;
-using Unity.Scenes;
 using UnityEngine;
 using VContainer.Unity;
 
@@ -151,17 +149,7 @@ namespace AnimationTest.ECS
             _testResults.WriteToFile(_testCase.OutputDirectory);
             _testCase.TestFinished();
         }
-
-        private static void PrintSystems(WorldContainer container)
-        {
-            var group = container.World.GetExistingSystemManaged<SimulationSystemGroup>();
-            foreach (var test in group.GetAllSystems())
-            {
-                ref readonly var state = ref container.World.Unmanaged.ResolveSystemStateRef(test);
-                Debug.Log(state.DebugName);
-            }
-        }
-
+        
         public void Dispose()
         {
             _fpsCounter.Dispose();

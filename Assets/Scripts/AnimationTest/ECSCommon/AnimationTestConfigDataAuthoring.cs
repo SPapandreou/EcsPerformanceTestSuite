@@ -5,7 +5,7 @@ using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
-namespace AnimationTest.ECS
+namespace AnimationTest.ECSCommon
 {
     public class AnimationTestConfigDataAuthoring : MonoBehaviour
     {

@@ -11,6 +11,8 @@ namespace IterationTest.ECSMathBurst
     [BurstCompile]
     public partial struct ExecutionSystem : ISystem
     {
+        private const float Freq = 0.434f;
+        
         public void OnCreate(ref SystemState state)
         {
             state.RequireForUpdate<IterationTestData>();
@@ -18,31 +20,26 @@ namespace IterationTest.ECSMathBurst
 
         public void OnUpdate(ref SystemState state)
         {
-            var data = SystemAPI.GetSingleton<IterationTestData>();
+            state.Dependency = new MatrixMultJob().ScheduleParallel(state.Dependency);
 
-            const float time = 1.26788f;
-
-            state.Dependency = new TrigonometryNoiseJob
-            {
-                Time = time
-            }.ScheduleParallel(state.Dependency);
-
-            state.Enabled = false;
+            state.Dependency.Complete();
         }
         
         [BurstCompile]
-        public partial struct TrigonometryNoiseJob : IJobEntity
+        public partial struct MatrixMultJob : IJobEntity
         {
-            [ReadOnly]public float Time;
             public void Execute(ref LocalTransform transform)
             {
-                float3 p = transform.Position;
+                var p = transform.Position;
+                var v = new float4(p, 1f);
 
-                p.x += math.sin(p.y * 0.1f + Time) * 0.5f;
-                p.y += math.cos(p.x * 0.1f + Time) * 0.5f;
-                p.z += math.sin(p.x * 0.05f + p.y * 0.05f + Time) * 0.25f;
-                
-                transform.Position =p;
+                for (int i = 0; i < 100; i++)
+                {
+                    v = math.sin(v) + math.sqrt(v * 1.2345f);
+                    v = math.log(v + 1.001f) * math.exp(v * 0.1f);
+                }
+
+                transform.Position = v.xyz;
             }
         }
     }

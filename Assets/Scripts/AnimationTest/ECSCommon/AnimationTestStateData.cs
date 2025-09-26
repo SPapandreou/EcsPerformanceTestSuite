@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Mathematics;
 
-namespace AnimationTest.ECS
+namespace AnimationTest.ECSCommon
 {
     public struct AnimationTestStateData : IComponentData
     {

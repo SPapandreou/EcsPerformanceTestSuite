@@ -12,12 +12,14 @@ namespace IterationTest
     public class DefaultParameters : MonoBehaviour, ITestCaseFactory<OopIteration>, ITestCaseFactory<EcsIterationMainThread>, ITestCaseFactory<EcsIterationBurst>, ITestCaseFactory<EcsIterationParallel>, ITestCaseFactory<EcsIterationMathBurst>, ITestCaseFactory<EcsIterationMathParallel>
     {
         public int count;
+        public int iterations;
         
         OopIteration ITestCaseFactory<OopIteration>.CreateTestCase()
         {
             return new OopIteration
             {
-                Count = count
+                Count = count,
+                Iterations = iterations
             };
         }
         
@@ -25,7 +27,8 @@ namespace IterationTest
         {
             return new EcsIterationMainThread
             {
-                Count = count
+                Count = count,
+                Iterations = iterations
             };
         }
 
@@ -33,7 +36,8 @@ namespace IterationTest
         {
             return new EcsIterationBurst
             {
-                Count = count
+                Count = count,
+                Iterations = iterations
             };
         }
 
@@ -41,7 +45,8 @@ namespace IterationTest
         {
             return new EcsIterationParallel
             {
-                Count = count
+                Count = count,
+                Iterations = iterations
             };
         }
 
@@ -49,15 +54,17 @@ namespace IterationTest
         {
             return new EcsIterationMathBurst
             {
-                Count = count
+                Count = count,
+                Iterations = iterations
             };
         }
 
-        public EcsIterationMathParallel CreateTestCase()
+        EcsIterationMathParallel ITestCaseFactory<EcsIterationMathParallel>.CreateTestCase()
         {
             return new EcsIterationMathParallel
             {
-                Count = count
+                Count = count,
+                Iterations = iterations
             };
         }
     }

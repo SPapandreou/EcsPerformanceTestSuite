@@ -5,11 +5,8 @@ using Core.Tests;
 using Core.uProf;
 using Cysharp.Threading.Tasks;
 using IterationTest.ECSCommon;
-using IterationTest.ECSMainThread;
 using Unity.Entities;
 using VContainer.Unity;
-using CleanupSystem = IterationTest.ECSCommon.CleanupSystem;
-using SetupSystem = IterationTest.ECSCommon.SetupSystem;
 
 namespace IterationTest.ECSBurst
 {
@@ -29,6 +26,7 @@ namespace IterationTest.ECSBurst
 
             _testCase = testManager.GetOrCreateTestCase(defaultFactory);
             _testResults.Parameters["Count"] = _testCase.Count;
+            _testResults.Parameters["Iterations"] = _testCase.Iterations;
             _testResults.TestCase = nameof(EcsIterationBurst);
             _testHudLogic = hudLogic;
         }
@@ -41,6 +39,7 @@ namespace IterationTest.ECSBurst
             var stopwatch = new Stopwatch();
 
             _testManager.PublishMessage($"N = {_testCase.Count}");
+            _testManager.PublishMessage($"i = {_testCase.Iterations}");
 
             await UniTask.Yield();
 
@@ -76,15 +75,28 @@ namespace IterationTest.ECSBurst
 
             var executionSystem = world.CreateSystem<ExecutionSystem>();
 
+            if (!_testCase.Warmup)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    executionSystem.Update(world.Unmanaged);
+                }
+            }
+
             await _uprofWrapper.StartProfiling();
             stopwatch.Start();
-            executionSystem.Update(world.Unmanaged);
+
+            for (int i = 0; i < _testCase.Iterations; i++)
+            {
+                executionSystem.Update(world.Unmanaged);    
+            }
+            
             stopwatch.Stop();
 
 
             await _uprofWrapper.StopProfiling(_testCase.OutputDirectory, _testResults);
 
-            _testResults.KeyValues["Execution"] = stopwatch.Elapsed.TotalSeconds;
+            _testResults.KeyValues["Execution"] = stopwatch.Elapsed.TotalSeconds / _testCase.Iterations;
             stopwatch.Reset();
 
             _testManager.PublishMessage("Cleanup...");
@@ -101,9 +113,11 @@ namespace IterationTest.ECSBurst
             _testManager.PublishMessage("Finished...");
 
             await UniTask.Yield();
-
+            
             totalTime.Stop();
 
+            _testResults.KeyValues["WallTime"] = totalTime.Elapsed.TotalSeconds;
+            
             world.DestroyAllSystemsAndLogException(out _);
             world.Dispose();
             

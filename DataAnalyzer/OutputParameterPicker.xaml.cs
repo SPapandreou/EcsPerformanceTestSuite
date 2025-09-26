@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks.Dataflow;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace DataAnalyzer;
 
@@ -62,8 +63,17 @@ public partial class OutputParameterPicker : WizardPage
                 acc.IntersectWith(d.Keys);
                 return acc;
             });
+
+        var uprofParameters = new List<string>();
+        if (allTestRuns.First().TestResult.UprofData.Count != 0)
+        {
+            foreach (var parameter in allTestRuns.First().TestResult.UprofData.Keys)
+            {
+                uprofParameters.Add(parameter);
+            }
+        }
         
-        Parameters = commonParameters.ToList(); 
+        Parameters = commonParameters.ToList().Concat(uprofParameters).ToList(); 
         SelectedParameter = Parameters.FirstOrDefault();
     }
 }

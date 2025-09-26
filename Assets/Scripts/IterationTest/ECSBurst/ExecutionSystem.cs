@@ -27,7 +27,7 @@ namespace IterationTest.ECSBurst
                 Velocity = velocity
             }.ScheduleParallel(state.Dependency);
 
-            state.Enabled = false;
+            state.Dependency.Complete();
         }
 
         [BurstCompile]

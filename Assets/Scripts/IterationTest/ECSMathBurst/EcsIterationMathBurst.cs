@@ -16,7 +16,7 @@ namespace IterationTest.ECSMathBurst
         {
             
         }
-        
+
         public EcsIterationMathBurst(VisualTreeAsset tableRowTemplate, TestRunFileEntry entry) : base(
             tableRowTemplate, entry)
         {

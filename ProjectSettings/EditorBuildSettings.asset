@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/IterationTest/EcsIterationMathParallel.unity
     guid: 47c6e15031ed72c47bbdb46b51ec4191
   - enabled: 1
+    path: Assets/Scenes/AnimationTest/EcsAnimationMainThread.unity
+    guid: 756188caae4367b49bf0d784711e7fc2
+  - enabled: 1
     path: Assets/Scenes/IterationTest/EcsIterationParallel.unity
     guid: 8e07be71c44235240b34bd09c009fbd1
   - enabled: 1
@@ -38,5 +41,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PhysicsTest/OopPhysics.unity
     guid: 5c207d95ae8f7274fab40b3452d4820e
+  - enabled: 1
+    path: Assets/Scenes/AnimationTest/EcsAnimationBurst.unity
+    guid: 88d98b4a25f51784389093a70238123f
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

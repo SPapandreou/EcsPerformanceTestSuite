@@ -35,6 +35,7 @@ namespace IterationTest.OOP
             _testHudLogic.SetTitle(nameof(OopIteration));
             _testHudLogic.SetFpsEnabled(false);
             _testManager.PublishMessage($"N = {_testCase.Count}");
+            _testManager.PublishMessage($"i = {_testCase.Iterations}");
             
             var totalTime = new Stopwatch();
             var stopwatch = new Stopwatch();
@@ -81,18 +82,31 @@ namespace IterationTest.OOP
             await UniTask.Yield();
 
             var velocity = IterationTestConfiguration.VelocityVector;
+            
+            for (int i = 0; i < 5; i++)
+            {
+                foreach (var gameObject in gameObjects)
+                {
+                    gameObject.transform.position += velocity;
+                }    
+            }
 
             await _uprofWrapper.StartProfiling();
             stopwatch.Start();
-            foreach (var gameObject in gameObjects)
+            
+            for (int i = 0; i < _testCase.Iterations; i++)
             {
-                gameObject.transform.position += velocity;
+                foreach (var gameObject in gameObjects)
+                {
+                    gameObject.transform.position += velocity;
+                }    
             }
+            
 
             stopwatch.Stop();
 
             await _uprofWrapper.StopProfiling(_testCase.OutputDirectory, _testResults);
-            _testResults.KeyValues["Execution"] = stopwatch.Elapsed.TotalSeconds;
+            _testResults.KeyValues["Execution"] = stopwatch.Elapsed.TotalSeconds/_testCase.Iterations;
             stopwatch.Reset();
 
             _testManager.PublishMessage("Cleanup...");
@@ -113,9 +127,12 @@ namespace IterationTest.OOP
 
             _testManager.PublishMessage("Finished...");
             
-            totalTime.Stop();
-
             await UniTask.Yield();
+            
+            totalTime.Stop();
+            _testResults.KeyValues["WallTime"] = totalTime.Elapsed.TotalSeconds;
+
+            
             if (_testCase.Warmup)
             {
                 _testCase.TestFinished();

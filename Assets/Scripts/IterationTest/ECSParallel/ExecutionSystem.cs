@@ -25,7 +25,7 @@ namespace IterationTest.ECSParallel
                 Velocity = velocity
             }.ScheduleParallel(state.Dependency);
 
-            state.Enabled = false;
+            state.Dependency.Complete();
         }
         
         public partial struct UpdatePositionJob : IJobEntity

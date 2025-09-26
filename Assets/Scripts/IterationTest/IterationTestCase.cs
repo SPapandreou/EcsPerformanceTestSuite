@@ -8,6 +8,7 @@ namespace IterationTest
     public abstract class IterationTestCase : TestCase
     {
         public int Count = 10;
+        public int Iterations = 1;
 
         public IterationTestCase()
         {
@@ -17,6 +18,7 @@ namespace IterationTest
         public IterationTestCase(VisualTreeAsset tableRowTemplate, TestRunFileEntry entry) : base(tableRowTemplate)
         {
             Count = Convert.ToInt32(entry.Parameters["Count"]);
+            Iterations = Convert.ToInt32(entry.Parameters["Iterations"]);
         }
 
         public IterationTestCase(VisualTreeAsset tableRowTemplate) : base(tableRowTemplate)
@@ -31,7 +33,8 @@ namespace IterationTest
                 TestCase = GetType().Name,
                 Parameters =
                 {
-                    ["Count"] = Count
+                    ["Count"] = Count,
+                    ["Iterations"] = Iterations
                 }
             };
 
@@ -44,6 +47,7 @@ namespace IterationTest
             var row = new TestTableRow(tableRowTemplate);
             row.SetTestCase(GetType().Name);
             row.BindCountField(Count, x=>Count = x.newValue);
+            row.BindIterationsField(Iterations, x => Iterations = x.newValue);
             return row;
         }
     }

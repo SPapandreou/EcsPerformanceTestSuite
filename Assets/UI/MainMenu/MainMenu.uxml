@@ -17,11 +17,14 @@
             </engine:VisualElement>
             <engine:VisualElement name="Table" class="contentContainer" style="flex-grow: 1; flex-basis: auto; display: flex;">
                 <engine:VisualElement name="TableHeader" class="contentHeader" style="flex-direction: row; padding-right: 34px; margin-bottom: 0; padding-top: 10px; padding-bottom: 10px; padding-left: 10px;">
-                    <engine:VisualElement class="testTableCell" style="width: 20%;">
+                    <engine:VisualElement class="testTableCell" style="width: 18%;">
                         <engine:Label text="Test Case" name="Name" class="tableCellContent tableCellLabel" />
                     </engine:VisualElement>
                     <engine:VisualElement class="testTableCell" style="width: 10%;">
                         <engine:Label text="Count" name="Count" class="tableCellContent tableCellLabel" />
+                    </engine:VisualElement>
+                    <engine:VisualElement class="testTableCell" style="width: 10%;">
+                        <engine:Label text="Iterations" name="Iterations" class="tableCellContent tableCellLabel" />
                     </engine:VisualElement>
                     <engine:VisualElement class="testTableCell" style="width: 10%;">
                         <engine:Label text="Duration" name="Duration" class="tableCellContent tableCellLabel" />

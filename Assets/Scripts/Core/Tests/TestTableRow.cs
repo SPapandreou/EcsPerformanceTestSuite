@@ -8,6 +8,7 @@ namespace Core.Tests
     {
         private readonly Label _testCaseLabel;
         private readonly IntegerField _countField;
+        private readonly IntegerField _iterationsField;
         private readonly FloatField _durationField;
         private readonly EnumField _arrangementField;
         private readonly EnumField _shapeField;
@@ -24,6 +25,7 @@ namespace Core.Tests
             
             _testCaseLabel = Root.Q<Label>("TestCaseLabel");
             _countField = Root.Q<IntegerField>("CountField");
+            _iterationsField = Root.Q<IntegerField>("IterationsField");
             _durationField = Root.Q<FloatField>("DurationField");
             _arrangementField = Root.Q<EnumField>("ArrangementField");
             _shapeField = Root.Q<EnumField>("ShapeField");
@@ -32,6 +34,7 @@ namespace Core.Tests
             _heightOffsetField = Root.Q<FloatField>("HeightOffsetField");
 
             _countField.SetEnabled(false);
+            _iterationsField.SetEnabled(false);
             _durationField.SetEnabled(false);
             _arrangementField.SetEnabled(false);
             _shapeField.SetEnabled(false);
@@ -50,6 +53,13 @@ namespace Core.Tests
             _countField.SetEnabled(true);
             _countField.value = value;
             _countField.RegisterValueChangedCallback(setCount);
+        }
+
+        public void BindIterationsField(int value, EventCallback<ChangeEvent<int>> setIterations)
+        {
+            _iterationsField.SetEnabled(true);
+            _iterationsField.value = value;
+            _iterationsField.RegisterValueChangedCallback(setIterations);
         }
 
         public void BindDurationField(float value, EventCallback<ChangeEvent<float>> setDuration)
